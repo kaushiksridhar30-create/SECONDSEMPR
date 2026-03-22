@@ -1,7 +1,67 @@
 const taskInput = document.getElementById('taskInput');
 const taskList = document.getElementById('taskList');
 
-// 1. Load Tasks (Updated to include Delete Button)
+// 1. Fetch and Display Tasks
+async function loadTasks() {
+    try {
+        const response = await fetch('/api/tasks');
+        const tasks = await response.json();
+        
+        taskList.innerHTML = ''; 
+        tasks.forEach(task => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>${task.text}</span>
+                <button class="delete-btn" onclick="deleteTask('${task._id}')">Delete</button>
+            `;
+            taskList.appendChild(li);
+        });
+    } catch (err) {
+        console.error("Error loading tasks:", err);
+    }
+}
+
+// 2. Add a Task to MongoDB
+async function addTask() {
+    const text = taskInput.value.trim();
+    if (!text) return alert("Please type a task!");
+
+    try {
+        const response = await fetch('/api/tasks', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text })
+        });
+
+        if (response.ok) {
+            taskInput.value = '';
+            loadTasks(); // Refresh list
+        }
+    } catch (err) {
+        alert("Failed to save task. Check server terminal.");
+    }
+}
+
+// 3. Delete a Task from MongoDB
+async function deleteTask(id) {
+    if (!confirm("Delete this task?")) return;
+
+    try {
+        const response = await fetch(`/api/tasks/${id}`, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            loadTasks(); // Refresh list
+        }
+    } catch (err) {
+        console.error("Error deleting task:", err);
+    }
+}
+
+// Initial load
+loadTasks();
+// Replace your loadTasks and add toggleTask
 async function loadTasks() {
     const response = await fetch('/api/tasks');
     const tasks = await response.json();
@@ -9,38 +69,59 @@ async function loadTasks() {
     taskList.innerHTML = ''; 
     tasks.forEach(task => {
         const li = document.createElement('li');
+        // Add a class if the task is completed
+        if (task.completed) li.classList.add('completed');
+        
         li.innerHTML = `
-            <span>${task.text}</span>
+            <span onclick="toggleTask('${task._id}')" style="cursor:pointer; text-decoration: ${task.completed ? 'line-through' : 'none'}">
+                ${task.text}
+            </span>
             <button class="delete-btn" onclick="deleteTask('${task._id}')">Delete</button>
         `;
         taskList.appendChild(li);
     });
 }
 
-// 2. Add Task
-async function addTask() {
-    const text = taskInput.value;
-    if (!text) return alert("Type something!");
+// NEW: Update Function
+async function toggleTask(id) {
+    await fetch(`/api/tasks/${id}`, { method: 'PUT' });
+    loadTasks(); // Refresh to show the strike-through
+}
+async function loadTasks() {
+    const response = await fetch('/api/tasks');
+    const tasks = await response.json();
+    
+    taskList.innerHTML = ''; 
+    tasks.forEach(task => {
+        const li = document.createElement('li');
+        // Add a class for styling if done
+        if (task.completed) li.classList.add('completed');
 
-    await fetch('/api/tasks', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: text })
+        li.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <input type="checkbox" 
+                    ${task.completed ? 'checked' : ''} 
+                    onclick="toggleTask('${task._id}')">
+                <span style="text-decoration: ${task.completed ? 'line-through' : 'none'}">
+                    ${task.text}
+                </span>
+            </div>
+            <button class="delete-btn" onclick="deleteTask('${task._id}')">Delete</button>
+        `;
+        taskList.appendChild(li);
     });
-
-    taskInput.value = '';
-    loadTasks();
 }
 
-// 3. Delete Task (New Function)
-async function deleteTask(id) {
-    const response = await fetch(`/api/tasks/${id}`, {
-        method: 'DELETE'
-    });
-
-    if (response.ok) {
-        loadTasks(); // Refresh the list after deleting
+// Function to call the Update route
+async function toggleTask(id) {
+    try {
+        const response = await fetch(`/api/tasks/${id}`, {
+            method: 'PUT'
+        });
+        if (response.ok) {
+            loadTasks(); // Refresh UI to show the checkmark and line-through
+        }
+    } catch (err) {
+        console.error("Update failed:", err);
     }
 }
-
-loadTasks();

@@ -1,22 +1,20 @@
 const express = require('express');
-const { MongoClient } = require('mongodb');
-const app = express(); // This is the "app" variable causing the error!
+const { MongoClient, ObjectId } = require('mongodb'); // Added ObjectId for deleting
+const app = express();
+const port = 3000;
 
-// 1. Settings
+// 1. Middleware
 app.use(express.json());
-app.use(express.static('frontend')); 
+app.use(express.static('frontend')); // Serves your HTML/CSS/JS
 
-// 2. YOUR CONNECTION STRING
-// Replace this with your actual string from Atlas!
+// 2. Connection String (Replace with YOUR actual password)
 const uri = "mongodb://kaushiksridhar30_db_user:teamuser12345@ac-bwrjiih-shard-00-00.vdvhqas.mongodb.net:27017,ac-bwrjiih-shard-00-01.vdvhqas.mongodb.net:27017,ac-bwrjiih-shard-00-02.vdvhqas.mongodb.net:27017/?ssl=true&replicaSet=atlas-aj10qk-shard-0&authSource=admin&appName=Cluster0teammanager";
 
 const client = new MongoClient(uri, {
-  connectTimeoutMS: 5000,
-  socketTimeoutMS: 45000,
-  family: 4 // This helps bypass the DNS/ECONNREFUSED error
+  family: 4 // Forces IPv4 to avoid connection errors
 });
 
-async function start() {
+async function startServer() {
   try {
     console.log("⏳ Connecting to MongoDB...");
     await client.connect();
@@ -25,14 +23,38 @@ async function start() {
     const db = client.db("task_manager");
     const tasks = db.collection("tasks");
 
-    // Route to get tasks
+    // --- ROUTES ---
+
+    // A. GET all tasks
     app.get('/api/tasks', async (req, res) => {
       const allTasks = await tasks.find({}).toArray();
       res.json(allTasks);
     });
 
-    app.listen(3000, () => {
-      console.log("🚀 Server is live at http://localhost:3000");
+    // B. POST (Add) a new task
+    app.post('/api/tasks', async (req, res) => {
+      const newTask = { 
+        text: req.body.text, 
+        createdAt: new Date() 
+      };
+      const result = await tasks.insertOne(newTask);
+      res.status(201).json({ ...newTask, _id: result.insertedId });
+    });
+
+    // C. DELETE a task
+    app.delete('/api/tasks/:id', async (req, res) => {
+      try {
+        const id = req.params.id;
+        await tasks.deleteOne({ _id: new ObjectId(id) });
+        res.json({ message: "Task deleted" });
+      } catch (err) {
+        res.status(400).json({ error: "Invalid ID format" });
+      }
+    });
+
+    // 3. Start listening
+    app.listen(port, () => {
+      console.log(`🚀 Server is live at http://localhost:${port}`);
     });
 
   } catch (err) {
@@ -40,19 +62,42 @@ async function start() {
   }
 }
 
-start();
-// Add this route to server.js
-app.delete('/api/tasks/:id', async (req, res) => {
+ startServer();
+ // D. UPDATE (Toggle Complete)
+app.put('/api/tasks/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        const result = await tasks.deleteOne({ _id: new ObjectId(id) });
+        const task = await tasks.findOne({ _id: new ObjectId(id) });
         
-        if (result.deletedCount === 1) {
-            res.json({ message: "Task deleted successfully" });
-        } else {
-            res.status(404).json({ error: "Task not found" });
-        }
+        // Toggle the completed status (if it's true, make it false; if false, make it true)
+        const newStatus = !task.completed;
+        
+        await tasks.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: { completed: newStatus } }
+        );
+        
+        res.json({ message: "Task updated", completed: newStatus });
     } catch (err) {
-        res.status(500).json({ error: "Invalid ID format" });
+        res.status(400).json({ error: "Update failed" });
+    }
+});
+// PUT route to update task status
+app.put('/api/tasks/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const task = await tasks.findOne({ _id: new ObjectId(id) });
+        
+        // If task doesn't have a 'completed' field yet, it defaults to false, then flips to true
+        const newStatus = !task.completed;
+        
+        await tasks.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: { completed: newStatus } }
+        );
+        
+        res.json({ success: true, completed: newStatus });
+    } catch (err) {
+        res.status(400).json({ error: "Update failed" });
     }
 });

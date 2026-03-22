@@ -9,11 +9,11 @@
 <body>
 
     <div class="container">
-        <h2>Team Tasks</h2>
+        <h2>Team Task Manager</h2>
         
         <div class="input-group">
-            <input type="text" id="taskInput" placeholder="What needs to be done?">
-            <button id="add-btn" onclick="addTask()">Add</button>
+            <input type="text" id="taskInput" placeholder="Enter a new task..." onkeypress="if(event.key === 'Enter') addTask()">
+            <button id="add-btn" onclick="addTask()">Add Task</button>
         </div>
 
         <ul id="taskList">
