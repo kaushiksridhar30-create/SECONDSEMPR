@@ -9,32 +9,15 @@
 <body>
 
     <div class="container">
-        <h1>Team Task Manager</h1>
+        <h2>Team Tasks</h2>
         
-        <div class="input-section">
-            <input type="text" id="taskName" placeholder="Enter a new task...">
-            <select id="taskPriority">
-                <option value="Low">Low Priority</option>
-                <option value="Medium">Medium Priority</option>
-                <option value="High">High Priority</option>
-            </select>
-            <button onclick="addTask()">+ Add Task</button>
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="What needs to be done?">
+            <button id="add-btn" onclick="addTask()">Add</button>
         </div>
 
-        <div class="board">
-            <div class="column">
-                <h2>Backlog</h2>
-                <div id="backlog" class="task-list"></div>
-            </div>
-            <div class="column">
-                <h2>In Progress</h2>
-                <div id="inprogress" class="task-list"></div>
-            </div>
-            <div class="column">
-                <h2>Completed</h2>
-                <div id="completed" class="task-list"></div>
-            </div>
-        </div>
+        <ul id="taskList">
+            </ul>
     </div>
 
     <script src="script.js"></script>

@@ -1,25 +1,46 @@
-function addTask() {
-    const nameInput = document.getElementById('taskName');
-    const priorityInput = document.getElementById('taskPriority');
-    const backlog = document.getElementById('backlog');
+const taskInput = document.getElementById('taskInput');
+const taskList = document.getElementById('taskList');
 
-    if (nameInput.value.trim() === "") {
-        alert("Please enter a task name!");
-        return;
-    }
-
-    // Create the task card element
-    const card = document.createElement('div');
-    card.className = `task-card ${priorityInput.value.toLowerCase()}`;
+// 1. Load Tasks (Updated to include Delete Button)
+async function loadTasks() {
+    const response = await fetch('/api/tasks');
+    const tasks = await response.json();
     
-    card.innerHTML = `
-        <strong>${nameInput.value}</strong>
-        <p>Priority: ${priorityInput.value}</p>
-    `;
-
-    // Add the card to the Backlog column
-    backlog.appendChild(card);
-
-    // Clear the input field for the next task
-    nameInput.value = "";
+    taskList.innerHTML = ''; 
+    tasks.forEach(task => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <span>${task.text}</span>
+            <button class="delete-btn" onclick="deleteTask('${task._id}')">Delete</button>
+        `;
+        taskList.appendChild(li);
+    });
 }
+
+// 2. Add Task
+async function addTask() {
+    const text = taskInput.value;
+    if (!text) return alert("Type something!");
+
+    await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text })
+    });
+
+    taskInput.value = '';
+    loadTasks();
+}
+
+// 3. Delete Task (New Function)
+async function deleteTask(id) {
+    const response = await fetch(`/api/tasks/${id}`, {
+        method: 'DELETE'
+    });
+
+    if (response.ok) {
+        loadTasks(); // Refresh the list after deleting
+    }
+}
+
+loadTasks();

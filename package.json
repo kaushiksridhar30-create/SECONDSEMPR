@@ -1,0 +1,25 @@
+{
+  "name": "secondsempr",
+  "version": "1.0.0",
+  "description": "ITS COMPLETE WEB development workflow for single web page consisting a frontend backend and database connected workflow to pull off",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaushiksridhar30-create/SECONDSEMPR.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/kaushiksridhar30-create/SECONDSEMPR/issues"
+  },
+  "homepage": "https://github.com/kaushiksridhar30-create/SECONDSEMPR#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongodb": "^7.1.0"
+  }
+}
