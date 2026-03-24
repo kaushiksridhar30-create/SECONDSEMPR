@@ -125,3 +125,18 @@ async function toggleTask(id) {
         console.error("Update failed:", err);
     }
 }
+// NEW: Search Functionality
+function searchTasks() {
+    const filter = document.getElementById('searchInput').value.toLowerCase();
+    const tasks = document.querySelectorAll('#taskList li');
+
+    tasks.forEach(task => {
+        const text = task.querySelector('span').textContent.toLowerCase();
+        if (text.includes(filter)) {
+            task.style.display = ""; // Show
+        } else {
+            task.style.display = "none"; // Hide
+        }
+    
+    });
+}

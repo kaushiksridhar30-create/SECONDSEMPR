@@ -10,7 +10,9 @@
 
     <div class="container">
         <h2>Team Task Manager</h2>
-        
+        <div class="search-group">
+    <input type="text" id="searchInput" placeholder="Search tasks..." oninput="searchTasks()">
+</div>
         <div class="input-group">
             <input type="text" id="taskInput" placeholder="Enter a new task..." onkeypress="if(event.key === 'Enter') addTask()">
             <button id="add-btn" onclick="addTask()">Add Task</button>

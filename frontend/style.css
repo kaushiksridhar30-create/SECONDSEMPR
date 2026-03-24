@@ -123,3 +123,30 @@ input[type="checkbox"] {
     color: #888;
     text-decoration: line-through;
 }
+/* Add this to the bottom of your style.css */
+.search-group {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+#searchInput {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9fb;
+}
+
+/* Make the container look more modern */
+.container {
+    max-width: 450px;
+    border-top: 8px solid #667eea; /* Adds a nice color accent at the top */
+}
+
+/* Hover effect for tasks */
+li:hover {
+    background-color: #f0f2ff;
+    transform: scale(1.02);
+    transition: all 0.2s ease;
+}
