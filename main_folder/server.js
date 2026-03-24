@@ -1,7 +1,10 @@
 const express = require('express');
 const { MongoClient, ObjectId } = require('mongodb'); // Added ObjectId for deleting
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; 
+app.listen(port, () => {
+  console.log(`🚀 Server is live!`);
+});
 
 // 1. Middleware
 app.use(express.json());
