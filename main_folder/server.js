@@ -104,3 +104,21 @@ app.put('/api/tasks/:id', async (req, res) => {
         res.status(400).json({ error: "Update failed" });
     }
 });
+// A. GET tasks for a specific user
+app.get('/api/tasks/:username', async (req, res) => {
+    const username = req.params.username;
+    const allTasks = await tasks.find({ user: username }).toArray();
+    res.json(allTasks);
+});
+
+// B. POST a task with a username
+app.post('/api/tasks', async (req, res) => {
+    const newTask = { 
+        text: req.body.text, 
+        user: req.body.user, // Save who created it
+        completed: false,
+        createdAt: new Date() 
+    };
+    await tasks.insertOne(newTask);
+    res.json(newTask);
+});

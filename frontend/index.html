@@ -7,7 +7,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div id="login-screen" class="overlay">
+    <div class="login-box">
+        <h3>Welcome Back</h3>
+        <input type="text" id="usernameInput" placeholder="Enter Username">
+        <button onclick="login()">Start Managing</button>
+    </div>
+</div>
 
+<div id="main-app" style="display: none;">
+    </div>
     <div class="container">
         <h2>Team Task Manager</h2>
         <div class="search-group">

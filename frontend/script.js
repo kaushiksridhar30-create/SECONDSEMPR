@@ -140,3 +140,44 @@ function searchTasks() {
     
     });
 }
+let currentUser = localStorage.getItem('username');
+
+// 1. Check if already logged in
+if (currentUser) {
+    showApp();
+}
+
+function login() {
+    const user = document.getElementById('usernameInput').value.trim();
+    if (!user) return alert("Enter a name!");
+    localStorage.setItem('username', user);
+    currentUser = user;
+    showApp();
+}
+
+function showApp() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+    loadTasks();
+}
+
+// 2. Update your loadTasks to use the username
+async function loadTasks() {
+    const response = await fetch(`/api/tasks/${currentUser}`);
+    const tasks = await response.json();
+    // ... rest of your existing loadTasks code ...
+}
+
+// 3. Update addTask to send the username
+async function addTask() {
+    const text = taskInput.value.trim();
+    if (!text) return;
+
+    await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text, user: currentUser }) // Send user here
+    });
+    taskInput.value = '';
+    loadTasks();
+}
