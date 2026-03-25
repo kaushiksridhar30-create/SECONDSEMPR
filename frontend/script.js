@@ -140,7 +140,7 @@ function searchTasks() {
     
     });
 }
-let currentUser = localStorage.getItem('username');
+
 
 // 1. Check if already logged in
 if (currentUser) {
@@ -177,6 +177,59 @@ async function addTask() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: text, user: currentUser }) // Send user here
+    });
+    taskInput.value = '';
+    loadTasks();
+}
+// At the top of your script.js
+let currentUser = localStorage.getItem('username');
+
+// Check if user is already logged in when page loads
+window.onload = () => {
+    if (currentUser) {
+        showApp();
+    }
+};
+
+function login() {
+    const user = document.getElementById('usernameInput').value.trim();
+    if (user.length < 2) return alert("Please enter a valid username");
+    
+    localStorage.setItem('username', user);
+    currentUser = user;
+    showApp();
+}
+
+function logout() {
+    localStorage.removeItem('username');
+    location.reload(); // Refresh page to show login screen again
+}
+
+function showApp() {
+    document.getElementById('login-container').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+    document.body.style.background = "#f4f7f6"; // Change background back to light
+    loadTasks(); // Fetch only THIS user's tasks
+}
+
+// UPDATE: Modify your existing loadTasks to fetch by user
+async function loadTasks() {
+    // We send the username to the server as a query parameter
+    const response = await fetch(`/api/tasks?user=${currentUser}`);
+    const tasks = await response.json();
+    
+    // ... rest of your task rendering logic ...
+}
+
+// UPDATE: Modify your addTask to include the user
+async function addTask() {
+    const text = taskInput.value.trim();
+    if (!text) return;
+
+    await fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: text, user: currentUser }) // Pass user here
     });
     taskInput.value = '';
     loadTasks();

@@ -6,7 +6,29 @@
     <title>Team Task Manager</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body></body>
+    <div id="login-container" class="login-page">
+        <div class="login-card">
+            <h1>Welcome</h1>
+            <p>Please enter your name to manage tasks</p>
+            <input type="text" id="usernameInput" placeholder="Username" required>
+            <input type="password" id="passwordInput" placeholder="Password (any for now)">
+            <button onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <div id="main-app" style="display: none;">
+        <div class="container">
+            <div class="header-row">
+                <h2>Team Task Manager</h2>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+            <ul id="taskList"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
 <div id="login-screen" class="overlay">
     <div class="login-box">
         <h3>Welcome Back</h3>

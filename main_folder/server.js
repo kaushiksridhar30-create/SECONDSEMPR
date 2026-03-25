@@ -122,3 +122,21 @@ app.post('/api/tasks', async (req, res) => {
     await tasks.insertOne(newTask);
     res.json(newTask);
 });
+// GET tasks filtered by user
+app.get('/api/tasks', async (req, res) => {
+    const username = req.query.user; 
+    const allTasks = await tasks.find({ user: username }).toArray();
+    res.json(allTasks);
+});
+
+// POST task with user info
+app.post('/api/tasks', async (req, res) => {
+    const newTask = { 
+        text: req.body.text, 
+        user: req.body.user, // Store the username!
+        completed: false,
+        createdAt: new Date() 
+    };
+    await tasks.insertOne(newTask);
+    res.json(newTask);
+});
