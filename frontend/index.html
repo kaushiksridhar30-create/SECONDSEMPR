@@ -2,29 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Task management system</title>
+    <title>Task Pulse ⚡</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div id="login-view" class="glass-card">
-        <h1>Welcome</h1>
-        <p>Login to sync your tasks</p>
-        <input type="text" id="usernameInput" placeholder="Enter your name...">
-        <button onclick="login()">Get Started</button>
+        <h1>🔑 Login</h1>
+        <p>Enter your name to sync your workspace</p>
+        <input type="text" id="usernameInput" placeholder="👤 Your Name...">
+        <button onclick="login()">Enter Pulse 🚀</button>
     </div>
 
     <div id="app-view" class="glass-card hidden">
-        <h2 id="greet">Hello!</h2>
-        <input type="text" id="searchInput" placeholder="Search tasks..." oninput="searchTasks()">
+        <h2 id="greet">✨ Hello!</h2>
         
-        <div style="display:flex; gap:5px;">
-            <input type="text" id="taskInput" placeholder="Add a task...">
-            <button onclick="addTask()" style="width: 80px;">Add</button>
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="🔍 Search your tasks..." oninput="searchTasks()">
         </div>
 
-        <ul id="taskList"></ul>
-        <button onclick="logout()" style="background:transparent; border:1px solid white; margin-top:10px;">Logout</button>
+        <div style="display:flex; gap:10px; margin: 20px 0;">
+            <input type="text" id="taskInput" placeholder="➕ Add a new task...">
+            <button onclick="addTask()" style="width: 100px;">Save</button>
+        </div>
+
+        <ul id="taskList">
+            </ul>
+
+        <button onclick="logout()" style="background:transparent; border:2px solid white; margin-top:30px; font-size: 12px;">
+            🚪 Logout Securely
+        </button>
     </div>
 
     <script src="script.js"></script>

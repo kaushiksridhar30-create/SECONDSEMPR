@@ -1,70 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 * { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
 body {
-    margin: 0;
-    background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
-    color: white;
-    min-height: 100vh;
-    display: flex;
+    margin: 0; 
+    min-height: 100vh; 
+    display: flex; 
     justify-content: center;
+    /* Brighter, more colorful gradient */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    color: white;
 }
 
-/* Glass effect container */
 .glass-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 30px;
-    border-radius: 20px;
-    width: 400px;
-    margin-top: 80px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    background: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(20px);
+    padding: 40px; 
+    border-radius: 25px; 
+    width: 450px; 
+    margin-top: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+h1, h2 { 
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3); 
+    margin-bottom: 20px;
+    letter-spacing: 1px;
 }
 
 .hidden { display: none !important; }
 
+/* Inputs with better contrast */
 input {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border-radius: 10px;
-    border: none;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    outline: none;
+    width: 100%; 
+    padding: 14px; 
+    border-radius: 12px; 
+    border: 2px solid rgba(255,255,255,0.2);
+    background: rgba(0, 0, 0, 0.2); 
+    color: white; 
+    outline: none; 
+    margin-bottom: 15px;
+    font-size: 16px;
 }
 
+input::placeholder { color: rgba(255,255,255,0.7); }
+input:focus { border-color: #00d2ff; background: rgba(0,0,0,0.4); }
+
+/* Bright neon buttons */
 button {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
+    width: 100%; 
+    padding: 14px; 
+    border-radius: 12px; 
     border: none;
-    background: #00d2ff;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+    background: linear-gradient(to right, #00d2ff, #3a7bd5);
+    color: white; 
+    cursor: pointer; 
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-button:hover { background: #3a7bd5; }
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4);
+}
 
-/* Task List Styling */
-ul { list-style: none; padding: 0; }
+/* Task List Items */
+ul { list-style: none; padding: 0; margin-top: 25px; }
+
 li {
-    background: rgba(255, 255, 255, 0.05);
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    background: white; /* High contrast white background for tasks */
+    color: #333; /* Dark text for readability */
+    padding: 15px; 
+    border-radius: 15px;
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    margin-bottom: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.task-text { flex: 1; }
-.completed { text-decoration: line-through; opacity: 0.5; }
+.task-text { flex: 1; font-weight: 500; font-size: 16px; }
+.completed { text-decoration: line-through; opacity: 0.4; color: #888; }
 
-.delete-btn {
-    width: auto;
-    background: #ff4b2b;
-    padding: 5px 10px;
+/* Delete Button */
+.delete-btn { 
+    width: auto; 
+    background: #ff4b2b; 
+    padding: 8px 12px; 
+    font-size: 12px; 
+}
+
+/* Custom Checkbox Size */
+input[type="checkbox"] {
+    width: 20px; 
+    height: 20px; 
+    margin: 0;
+    cursor: pointer;
 }
