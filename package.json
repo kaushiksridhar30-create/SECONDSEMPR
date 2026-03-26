@@ -20,6 +20,6 @@
   "homepage": "https://github.com/kaushiksridhar30-create/SECONDSEMPR#readme",
   "dependencies": {
     "express": "^5.2.1",
-    "mongodb": "^7.1.0"
+    "mongodb": "^7.1.1"
   }
 }

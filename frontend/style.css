@@ -1,69 +1,70 @@
-* { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-body { margin: 0; background: #f4f7f6; transition: 0.3s; }
+* { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-/* Login Styling */
-.login-page {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    display: flex; justify-content: center; align-items: center; z-index: 1000;
-}
-.login-card {
-    background: white; padding: 40px; border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2); text-align: center; width: 350px;
-}
-.input-group-login { display: flex; flex-direction: column; gap: 15px; }
-.input-group-login input { padding: 12px; border: 1px solid #ddd; border-radius: 8px; }
-.input-group-login button { padding: 12px; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-
-/* Navbar & App */
-.navbar { background: white; padding: 15px 30px; display: flex; justify-content: space-between; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-.container { max-width: 500px; margin: 40px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-.search-group, .input-group { display: flex; gap: 10px; margin-bottom: 20px; }
-input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
-button { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; }
-
-/* Task List */
-ul { list-style: none; padding: 0; }
-li { 
-    background: #fff; border: 1px solid #eee; padding: 12px; 
-    margin-bottom: 10px; border-radius: 8px; display: flex; 
-    justify-content: space-between; align-items: center;
-}
-.logout-btn { background: #ff4757; }
-/* Task List Container */
-#taskList {
-    margin-top: 20px;
-    padding: 0;
-}
-
-/* Individual Task Row */
-.task-item {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 12px 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
+body {
+    margin: 0;
+    background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+    color: white;
+    min-height: 100vh;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    justify-content: center;
 }
 
-.task-item span {
-    font-size: 16px;
-    color: #333;
+/* Glass effect container */
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 30px;
+    border-radius: 20px;
+    width: 400px;
+    margin-top: 80px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
+
+.hidden { display: none !important; }
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #00d2ff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover { background: #3a7bd5; }
+
+/* Task List Styling */
+ul { list-style: none; padding: 0; }
+li {
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-text { flex: 1; }
+.completed { text-decoration: line-through; opacity: 0.5; }
 
 .delete-btn {
-    background: #ff4757;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.delete-btn:hover {
-    background: #ff6b81;
+    width: auto;
+    background: #ff4b2b;
+    padding: 5px 10px;
 }

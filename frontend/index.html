@@ -2,42 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Task Pro</title>
+    <title>Task management system</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="login-container" class="login-page">
-        <div class="login-card">
-            <h1>Task Master</h1>
-            <p>Enter your name to start</p>
-            <div class="input-group-login">
-                <input type="text" id="usernameInput" placeholder="Username" required>
-                <button onclick="login()">Login / Sign Up</button>
-            </div>
-        </div>
+
+    <div id="login-view" class="glass-card">
+        <h1>Welcome</h1>
+        <p>Login to sync your tasks</p>
+        <input type="text" id="usernameInput" placeholder="Enter your name...">
+        <button onclick="login()">Get Started</button>
     </div>
 
-    <div id="main-app" style="display: none;">
-        <nav class="navbar">
-            <span id="welcomeText">Welcome</span>
-            <button class="logout-btn" onclick="logout()">Logout</button>
-        </nav>
+    <div id="app-view" class="glass-card hidden">
+        <h2 id="greet">Hello!</h2>
+        <input type="text" id="searchInput" placeholder="Search tasks..." oninput="searchTasks()">
         
-        <div class="container">
-            <h2>Team Tasks</h2>
-            
-            <div class="search-group">
-                <input type="text" id="searchInput" placeholder="Search tasks..." oninput="searchTasks()">
-            </div>
-            
-            <div class="input-group">
-                <input type="text" id="taskInput" placeholder="What needs to be done?">
-                <button onclick="addTask()">Add Task</button>
-            </div>
-
-            <ul id="taskList"></ul>
+        <div style="display:flex; gap:5px;">
+            <input type="text" id="taskInput" placeholder="Add a task...">
+            <button onclick="addTask()" style="width: 80px;">Add</button>
         </div>
+
+        <ul id="taskList"></ul>
+        <button onclick="logout()" style="background:transparent; border:1px solid white; margin-top:10px;">Logout</button>
     </div>
 
     <script src="script.js"></script>
