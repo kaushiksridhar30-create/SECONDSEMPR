@@ -3,54 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team Task Manager</title>
+    <title>Team Task Pro</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body></body>
+<body>
     <div id="login-container" class="login-page">
         <div class="login-card">
-            <h1>Welcome</h1>
-            <p>Please enter your name to manage tasks</p>
-            <input type="text" id="usernameInput" placeholder="Username" required>
-            <input type="password" id="passwordInput" placeholder="Password (any for now)">
-            <button onclick="login()">Login</button>
+            <h1>Task Master</h1>
+            <p>Enter your name to start</p>
+            <div class="input-group-login">
+                <input type="text" id="usernameInput" placeholder="Username" required>
+                <button onclick="login()">Login / Sign Up</button>
+            </div>
         </div>
     </div>
 
     <div id="main-app" style="display: none;">
+        <nav class="navbar">
+            <span id="welcomeText">Welcome</span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </nav>
+        
         <div class="container">
-            <div class="header-row">
-                <h2>Team Task Manager</h2>
-                <button class="logout-btn" onclick="logout()">Logout</button>
+            <h2>Team Tasks</h2>
+            
+            <div class="search-group">
+                <input type="text" id="searchInput" placeholder="Search tasks..." oninput="searchTasks()">
             </div>
+            
+            <div class="input-group">
+                <input type="text" id="taskInput" placeholder="What needs to be done?">
+                <button onclick="addTask()">Add Task</button>
+            </div>
+
             <ul id="taskList"></ul>
         </div>
-    </div>
-
-    <script src="script.js"></script>
-
-<div id="login-screen" class="overlay">
-    <div class="login-box">
-        <h3>Welcome Back</h3>
-        <input type="text" id="usernameInput" placeholder="Enter Username">
-        <button onclick="login()">Start Managing</button>
-    </div>
-</div>
-
-<div id="main-app" style="display: none;">
-    </div>
-    <div class="container">
-        <h2>Team Task Manager</h2>
-        <div class="search-group">
-    <input type="text" id="searchInput" placeholder="Search tasks..." oninput="searchTasks()">
-</div>
-        <div class="input-group">
-            <input type="text" id="taskInput" placeholder="Enter a new task..." onkeypress="if(event.key === 'Enter') addTask()">
-            <button id="add-btn" onclick="addTask()">Add Task</button>
-        </div>
-
-        <ul id="taskList">
-            </ul>
     </div>
 
     <script src="script.js"></script>

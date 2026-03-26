@@ -140,3 +140,27 @@ app.post('/api/tasks', async (req, res) => {
     await tasks.insertOne(newTask);
     res.json(newTask);
 });
+// GET tasks for specific user
+app.get('/api/tasks', async (req, res) => {
+    const username = req.query.user;
+    const userTasks = await tasks.find({ user: username }).toArray();
+    res.json(userTasks);
+});
+
+// POST task for specific user
+app.post('/api/tasks', async (req, res) => {
+    const newTask = { 
+        text: req.body.text, 
+        user: req.body.user, 
+        completed: false 
+    };
+    await tasks.insertOne(newTask);
+    res.json(newTask);
+});
+
+// DELETE remains same
+app.delete('/api/tasks/:id', async (req, res) => {
+    const { ObjectId } = require('mongodb');
+    await tasks.deleteOne({ _id: new ObjectId(req.params.id) });
+    res.json({ message: "Deleted" });
+});
