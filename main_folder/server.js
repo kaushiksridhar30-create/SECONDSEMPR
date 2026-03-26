@@ -1,3 +1,12 @@
+const uri = process.env.MONGODB_URI;
+
+// This "if" statement prevents the crash you're seeing
+if (!uri) {
+    console.error("❌ ERROR: MONGODB_URI is not defined in Environment Variables!");
+    process.exit(1); // Stops the server gracefully with a clear message
+}
+
+const client = new MongoClient(uri);
 const express = require('express');
 const { MongoClient, ObjectId } = require('mongodb'); // Added ObjectId here
 const app = express();
