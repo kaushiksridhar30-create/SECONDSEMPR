@@ -25,14 +25,25 @@ function showApp() {
 }
 
 async function loadTasks() {
+    const taskList = document.getElementById('taskList');
+    
+    // 1. Fetch data from the server for the current user
     const response = await fetch(`/api/tasks?user=${currentUser}`);
     const tasks = await response.json();
-    const taskList = document.getElementById('taskList');
+    
+    console.log("Tasks received:", tasks); // Check your browser console (F12) to see this
+
+    // 2. Clear the list so we don't get duplicates
     taskList.innerHTML = '';
+
+    // 3. Loop through tasks and create the HTML for each one
     tasks.forEach(task => {
         const li = document.createElement('li');
-        li.innerHTML = `<span>${task.text}</span> 
-                        <button onclick="deleteTask('${task._id}')">Delete</button>`;
+        li.className = 'task-item'; // For better styling
+        li.innerHTML = `
+            <span>${task.text}</span>
+            <button class="delete-btn" onclick="deleteTask('${task._id}')">Delete</button>
+        `;
         taskList.appendChild(li);
     });
 }

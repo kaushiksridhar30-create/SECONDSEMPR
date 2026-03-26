@@ -30,3 +30,40 @@ li {
     justify-content: space-between; align-items: center;
 }
 .logout-btn { background: #ff4757; }
+/* Task List Container */
+#taskList {
+    margin-top: 20px;
+    padding: 0;
+}
+
+/* Individual Task Row */
+.task-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.task-item span {
+    font-size: 16px;
+    color: #333;
+}
+
+.delete-btn {
+    background: #ff4757;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.delete-btn:hover {
+    background: #ff6b81;
+}
